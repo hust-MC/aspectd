@@ -1,0 +1,6 @@
+.packages
+.idea/*
+.dart_tool/*
+Snapshot/*
+*.iml
+flutter_export_environment.sh
