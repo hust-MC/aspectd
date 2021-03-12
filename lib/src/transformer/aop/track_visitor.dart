@@ -225,8 +225,7 @@ class WidgetCreatorTracker {
             }
           }
         } else {
-          if (importUri.path == 'aspectd_impl/user_widget.dart' ||
-              importUri.path == 'flutter_web/src/widgets/user_widget.dart') {
+          if (importUri.path == 'flutter_module/widget/user_widget.dart') {
             for (Class class_ in library.classes) {
               if (class_.name == 'UserWidget') {
                 _hasCreationLocationClass = class_;

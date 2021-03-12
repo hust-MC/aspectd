@@ -15,7 +15,9 @@ import 'aop_iteminfo.dart';
 import 'aop_mode.dart';
 import 'aop_utils.dart';
 
+/// 通过Aspectd aop插桩，完成用户行为记录
 class AspectdAopCallVisitor extends Transformer {
+  /// 构造一个visitor
   AspectdAopCallVisitor(
       this._aopItemInfoList, this._uriToSource, this._libraryMap);
   final List<AopItemInfo> _aopItemInfoList;
