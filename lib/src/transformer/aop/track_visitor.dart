@@ -262,7 +262,7 @@ class WidgetCreatorTracker {
     // so that all classes implementing Widget behave consistently.
     final Name fieldName = Name(
       _locationFieldName,
-      _hasCreationLocationClass.enclosingLibrary,
+      _hasCreationLocationClass?.enclosingLibrary,
     );
     final Field locationField = Field(fieldName,
         type: const DynamicType(),
