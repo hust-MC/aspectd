@@ -65,11 +65,6 @@ void _maybeAddCreationLocationArgument(
     return;
   }
   if (!_hasNamedParameter(function, _creationLocationParameterName)) {
-    // TODO(jakemac): We don't apply the transformation to dependencies kernel
-    // outlines, so instead we just assume the named parameter exists.
-    //
-    // The only case in which it shouldn't exist is if the function has optional
-    // positional parameters so it cannot have optional named parameters.
     if (function.requiredParameterCount !=
         function.positionalParameters.length) {
       return;
@@ -89,6 +84,13 @@ void _maybeAddCreationLocationArgument(
 /// transformed to have a named parameter with the name specified by
 /// `_locationParameterName`.
 class _WidgetTransformer extends Transformer {
+
+  /// 控件跟踪
+  _WidgetTransformer(
+      {Class widgetClass, WidgetCreatorTracker tracker})
+      : _widgetClass = widgetClass,
+        _tracker = tracker;
+
   /// The [Widget] class defined in the `package:flutter` library.
   ///
   /// Used to perform instanceof checks to determine whether Dart constructor
@@ -101,19 +103,13 @@ class _WidgetTransformer extends Transformer {
   /// actual constructor call within the factory.
   Procedure _currentFactory;
 
-  WidgetCreatorTracker _tracker;
+  final WidgetCreatorTracker _tracker;
 
   /// Library that contains the transformed call sites.
   ///
   /// The transformation of the call sites is affected by the NNBD opt-in status
   /// of the library.
   Library _currentLibrary;
-
-  _WidgetTransformer(
-      {Class widgetClass, WidgetCreatorTracker tracker})
-      : _widgetClass = widgetClass,
-        _tracker = tracker;
-
 
   @override
   Procedure visitProcedure(Procedure node) {
@@ -193,7 +189,7 @@ class _WidgetTransformer extends Transformer {
 
   void exitLibrary() {
     assert(_currentLibrary != null,
-        "Attempting to exit a library without having entered one.");
+        'Attempting to exit a library without having entered one.');
     _currentLibrary = null;
   }
 }
@@ -379,11 +375,11 @@ class WidgetCreatorTracker {
   bool _isSubclassOfWidget(Class clazz) => _isSubclassOf(clazz, _widgetClass);
 
   bool _isSubclassOf(Class a, Class b) {
-    // TODO(askesc): Cache results.
-    // TODO(askesc): Test for subtype rather than subclass.
     Class current = a;
     while (current != null) {
-      if (current == b) return true;
+      if (current == b) {
+        return true;
+      }
       current = current.superclass;
     }
     return false;
