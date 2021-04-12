@@ -31,7 +31,7 @@ dependencies:
     sdk: flutter
   aspectd:
     git:
-      url: git@github.com:alibaba-flutter/aspectd.git
+      url: https://github.com/hust-MC/aspectd.git
       ref: stable/v1.20.4
   example:
     path: ../example
